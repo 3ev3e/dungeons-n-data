@@ -1,7 +1,7 @@
 {
   "name": "dungeons-n-data",
   "version": "0.1.0",
-  "homepage": "https://gitname.github.io/dungeons-n-data",
+  "homepage": "https://3ev3e.github.io/dungeons-n-data",
   "private": true,
   "dependencies": {
     "@testing-library/dom": "^10.4.0",
