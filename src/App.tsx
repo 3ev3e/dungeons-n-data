@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Select from "react-select";
 import Textarea from "@mui/joy/Textarea";
+import TextField from "@mui/material/TextField";
 
 interface Character {
   name: string;
@@ -179,6 +180,7 @@ export default function App() {
       setIntelligenceUseState(0);
       setWisdomUseState(0);
       setCharismaUseState(1);
+      character.speed = 30;
     } else if (character.race == "Dwarf") {
       setStrengthUseState(2); //mountain dwarf
       setDexterityUseState(0);
@@ -186,6 +188,7 @@ export default function App() {
       setIntelligenceUseState(0);
       setWisdomUseState(1); //hill dwarf
       setCharismaUseState(0);
+      character.speed = 25;
     } else if (character.race == "Elf") {
       setStrengthUseState(0);
       setDexterityUseState(2);
@@ -193,6 +196,7 @@ export default function App() {
       setIntelligenceUseState(1); //high elf
       setWisdomUseState(1); //wood elf
       setCharismaUseState(1); //drow / dark elf
+      character.speed = 30;
     } else if (character.race == "Gnome") {
       setStrengthUseState(0);
       setDexterityUseState(1); //forest gnome
@@ -200,6 +204,7 @@ export default function App() {
       setIntelligenceUseState(2);
       setWisdomUseState(0);
       setCharismaUseState(0);
+      character.speed = 25;
     } else if (character.race == "Half-Elf") {
       setStrengthUseState(0);
       setDexterityUseState(0);
@@ -207,6 +212,7 @@ export default function App() {
       setIntelligenceUseState(0);
       setWisdomUseState(0);
       setCharismaUseState(2);
+      character.speed = 30;
     } else if (character.race == "Half-Orc") {
       setStrengthUseState(2);
       setDexterityUseState(0);
@@ -214,6 +220,7 @@ export default function App() {
       setIntelligenceUseState(0);
       setWisdomUseState(0);
       setCharismaUseState(0);
+      character.speed = 30;
     } else if (character.race == "Halfling") {
       setStrengthUseState(0);
       setDexterityUseState(2);
@@ -221,6 +228,7 @@ export default function App() {
       setIntelligenceUseState(0);
       setWisdomUseState(0);
       setCharismaUseState(1); //lightfoot halfling
+      character.speed = 25;
     } else if (character.race == "Human") {
       setStrengthUseState(1);
       setDexterityUseState(1);
@@ -228,6 +236,7 @@ export default function App() {
       setIntelligenceUseState(1);
       setWisdomUseState(1);
       setCharismaUseState(1);
+      character.speed = 30;
     } else if (character.race == "Tiefling") {
       setStrengthUseState(0);
       setDexterityUseState(0);
@@ -235,6 +244,7 @@ export default function App() {
       setIntelligenceUseState(1);
       setWisdomUseState(0);
       setCharismaUseState(2);
+      character.speed = 30;
     }
 
     if (character.class) {
@@ -250,7 +260,8 @@ export default function App() {
               label: eq.name,
               value: eq.name,
             }))
-          ));
+          )
+        );
       fetch(
         `https://www.dnd5eapi.co/api/classes/${character.class
           .toString()
@@ -425,30 +436,6 @@ export default function App() {
           />
         </label>
       ))}
-
-      {[
-        "strength",
-        "dexterity",
-        "constitution",
-        "intelligence",
-        "wisdom",
-        "charisma",
-      ].map((stat) => (
-        <label key={stat} className="block mb-2">
-          {stat.charAt(0).toUpperCase() + stat.slice(1)}:
-          <input
-            type="number"
-            value={stat}
-            onChange={(e) =>
-              setCharacter({ ...character, [stat]: parseInt(e.target.value) })
-            }
-            className="w-full p-2 text-black rounded"
-            min="-5"
-            max="10"
-          />
-        </label>
-      ))}
-
       {[
         "strengthMod",
         "dexterityMod",
@@ -549,19 +536,16 @@ export default function App() {
           max="20"
         />
       </label>
-      <label className="block mb-2">
-        Speed:
-        <input
-          type="number"
-          value={character.speed}
-          onChange={(e) =>
-            setCharacter({ ...character, speed: parseInt(e.target.value) })
-          }
-          className="w-full p-2 text-black rounded"
-          min="1"
-          max="20"
-        />
-      </label>
+      <TextField
+        disabled
+        id="speed-field"
+        label="Speed"
+        type="number"
+        value={character.speed}
+        onChange={(e) =>
+          setCharacter({ ...character, speed: parseInt(e.target.value) })
+        }
+      />
       <label className="block mb-2">
         MaxHP:
         <input
@@ -777,7 +761,9 @@ export default function App() {
       <label className="block mb-2">
         Proficiencies:
         <Textarea
-          value={proficiencies.map((item: { value: any }) => item.value).join(", ")} // Convert array to string
+          value={proficiencies
+            .map((item: { value: any }) => item.value)
+            .join(", ")} // Convert array to string
           onChange={(e) =>
             setCharacter({
               ...character,
