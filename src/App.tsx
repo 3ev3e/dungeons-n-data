@@ -173,78 +173,94 @@ export default function App() {
       );
 
     //TODO make more effective evtl with fetch
-    if (character.race == "Dragonborn") {
-      setStrengthUseState(2);
-      setDexterityUseState(0);
-      setConstitutionUseState(0);
-      setIntelligenceUseState(0);
-      setWisdomUseState(0);
-      setCharismaUseState(1);
-      character.speed = 30;
-    } else if (character.race == "Dwarf") {
-      setStrengthUseState(2); //mountain dwarf
-      setDexterityUseState(0);
-      setConstitutionUseState(2);
-      setIntelligenceUseState(0);
-      setWisdomUseState(1); //hill dwarf
-      setCharismaUseState(0);
-      character.speed = 25;
-    } else if (character.race == "Elf") {
-      setStrengthUseState(0);
-      setDexterityUseState(2);
-      setConstitutionUseState(0);
-      setIntelligenceUseState(1); //high elf
-      setWisdomUseState(1); //wood elf
-      setCharismaUseState(1); //drow / dark elf
-      character.speed = 30;
-    } else if (character.race == "Gnome") {
-      setStrengthUseState(0);
-      setDexterityUseState(1); //forest gnome
-      setConstitutionUseState(1); //rock gnome
-      setIntelligenceUseState(2);
-      setWisdomUseState(0);
-      setCharismaUseState(0);
-      character.speed = 25;
-    } else if (character.race == "Half-Elf") {
-      setStrengthUseState(0);
-      setDexterityUseState(0);
-      setConstitutionUseState(0);
-      setIntelligenceUseState(0);
-      setWisdomUseState(0);
-      setCharismaUseState(2);
-      character.speed = 30;
-    } else if (character.race == "Half-Orc") {
-      setStrengthUseState(2);
-      setDexterityUseState(0);
-      setConstitutionUseState(1);
-      setIntelligenceUseState(0);
-      setWisdomUseState(0);
-      setCharismaUseState(0);
-      character.speed = 30;
-    } else if (character.race == "Halfling") {
-      setStrengthUseState(0);
-      setDexterityUseState(2);
-      setConstitutionUseState(1); //stout halfling
-      setIntelligenceUseState(0);
-      setWisdomUseState(0);
-      setCharismaUseState(1); //lightfoot halfling
-      character.speed = 25;
-    } else if (character.race == "Human") {
-      setStrengthUseState(1);
-      setDexterityUseState(1);
-      setConstitutionUseState(1);
-      setIntelligenceUseState(1);
-      setWisdomUseState(1);
-      setCharismaUseState(1);
-      character.speed = 30;
-    } else if (character.race == "Tiefling") {
-      setStrengthUseState(0);
-      setDexterityUseState(0);
-      setConstitutionUseState(0);
-      setIntelligenceUseState(1);
-      setWisdomUseState(0);
-      setCharismaUseState(2);
-      character.speed = 30;
+    if (character.race != "") {
+      fetch(
+        `https://www.dnd5eapi.co/api/races/${character.race
+          .toString()
+          .toLowerCase()}`
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          setLanguages(
+            data.languages.map((eq: { name: any }) => ({
+              label: eq.name,
+              value: eq.name,
+            }))
+          );
+        });
+      if (character.race == "Dragonborn") {
+        setStrengthUseState(2);
+        setDexterityUseState(0);
+        setConstitutionUseState(0);
+        setIntelligenceUseState(0);
+        setWisdomUseState(0);
+        setCharismaUseState(1);
+        character.speed = 30;
+      } else if (character.race == "Dwarf") {
+        setStrengthUseState(2); //mountain dwarf
+        setDexterityUseState(0);
+        setConstitutionUseState(2);
+        setIntelligenceUseState(0);
+        setWisdomUseState(1); //hill dwarf
+        setCharismaUseState(0);
+        character.speed = 25;
+      } else if (character.race == "Elf") {
+        setStrengthUseState(0);
+        setDexterityUseState(2);
+        setConstitutionUseState(0);
+        setIntelligenceUseState(1); //high elf
+        setWisdomUseState(1); //wood elf
+        setCharismaUseState(1); //drow / dark elf
+        character.speed = 30;
+      } else if (character.race == "Gnome") {
+        setStrengthUseState(0);
+        setDexterityUseState(1); //forest gnome
+        setConstitutionUseState(1); //rock gnome
+        setIntelligenceUseState(2);
+        setWisdomUseState(0);
+        setCharismaUseState(0);
+        character.speed = 25;
+      } else if (character.race == "Half-Elf") {
+        setStrengthUseState(0);
+        setDexterityUseState(0);
+        setConstitutionUseState(0);
+        setIntelligenceUseState(0);
+        setWisdomUseState(0);
+        setCharismaUseState(2);
+        character.speed = 30;
+      } else if (character.race == "Half-Orc") {
+        setStrengthUseState(2);
+        setDexterityUseState(0);
+        setConstitutionUseState(1);
+        setIntelligenceUseState(0);
+        setWisdomUseState(0);
+        setCharismaUseState(0);
+        character.speed = 30;
+      } else if (character.race == "Halfling") {
+        setStrengthUseState(0);
+        setDexterityUseState(2);
+        setConstitutionUseState(1); //stout halfling
+        setIntelligenceUseState(0);
+        setWisdomUseState(0);
+        setCharismaUseState(1); //lightfoot halfling
+        character.speed = 25;
+      } else if (character.race == "Human") {
+        setStrengthUseState(1);
+        setDexterityUseState(1);
+        setConstitutionUseState(1);
+        setIntelligenceUseState(1);
+        setWisdomUseState(1);
+        setCharismaUseState(1);
+        character.speed = 30;
+      } else if (character.race == "Tiefling") {
+        setStrengthUseState(0);
+        setDexterityUseState(0);
+        setConstitutionUseState(0);
+        setIntelligenceUseState(1);
+        setWisdomUseState(0);
+        setCharismaUseState(2);
+        character.speed = 30;
+      }
     }
 
     if (character.class) {
@@ -745,6 +761,16 @@ export default function App() {
           value={character.languages}
           onChange={(set) => set && handleChange("languages", set.target.value)}
           className="w-full p-2 text-black rounded"
+        />
+        <Textarea
+          value={languages.map((item: { value: any }) => item.value).join(", ")} // Convert array to string
+          onChange={(e) =>
+            setCharacter({
+              ...character,
+              languages: e.target.value.split(",").map((item) => item.trim()), // Convert back to array
+            })
+          }
+          className="text-black"
         />
       </label>
       <label className="block mb-2">
