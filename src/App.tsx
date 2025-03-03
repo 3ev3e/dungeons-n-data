@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import Select from "react-select";
 import Textarea from "@mui/joy/Textarea";
 import TextField from "@mui/material/TextField";
+import FormControl from '@mui/joy/FormControl';
+import FormLabel from '@mui/joy/FormLabel';
 
 interface Character {
   name: string;
@@ -172,7 +174,7 @@ export default function App() {
         )
       );
 
-    //TODO make more effective evtl with fetch
+    //TODO make more effective evtl with fetch (ability bonuses)
     if (character.race != "") {
       fetch(
         `https://www.dnd5eapi.co/api/races/${character.race
@@ -183,6 +185,12 @@ export default function App() {
         .then((data) => {
           setLanguages(
             data.languages.map((eq: { name: any }) => ({
+              label: eq.name,
+              value: eq.name,
+            }))
+          );
+          setTraits(
+            data.traits.map((eq: { name: any }) => ({
               label: eq.name,
               value: eq.name,
             }))
@@ -575,15 +583,19 @@ export default function App() {
           max="20"
         />
       </label>
-      <label className="block mb-2">
-        Traits:
-        <input
-          type="text"
-          value={character.traits}
-          onChange={(set) => set && handleChange("traits", set.target.value)}
-          className="w-full p-2 text-black rounded"
+        <FormControl>
+      <FormLabel>Traits:</FormLabel>
+        <Textarea
+          value={traits.map((item: { value: any }) => item.value).join(", ")} // Convert array to string
+          onChange={(e) =>
+            setCharacter({
+              ...character,
+              traits: e.target.value.split(",").map((item) => item.trim()), // Convert back to array
+            })
+          }
+          className="text-black"
         />
-      </label>
+      </FormControl>
       <label className="block mb-2">
         Personality:
         <input
@@ -754,14 +766,8 @@ export default function App() {
           max="20"
         />
       </label>
-      <label className="block mb-2">
-        Languages:
-        <input
-          type="text"
-          value={character.languages}
-          onChange={(set) => set && handleChange("languages", set.target.value)}
-          className="w-full p-2 text-black rounded"
-        />
+      <FormControl>
+      <FormLabel>Languages:</FormLabel>
         <Textarea
           value={languages.map((item: { value: any }) => item.value).join(", ")} // Convert array to string
           onChange={(e) =>
@@ -772,7 +778,7 @@ export default function App() {
           }
           className="text-black"
         />
-      </label>
+      </FormControl>
       <label className="block mb-2">
         FeaturesTraits:
         <input
@@ -784,8 +790,8 @@ export default function App() {
           className="w-full p-2 text-black rounded"
         />
       </label>
-      <label className="block mb-2">
-        Proficiencies:
+      <FormControl>
+      <FormLabel>Proficiencies:</FormLabel>
         <Textarea
           value={proficiencies
             .map((item: { value: any }) => item.value)
@@ -800,7 +806,7 @@ export default function App() {
           }
           className="text-black"
         />
-      </label>
+      </FormControl>
       {/* Save Character Button */}
       <button
         onClick={handleSaveCharacter}
