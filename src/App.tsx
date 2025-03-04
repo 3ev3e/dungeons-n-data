@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import Select from "react-select";
 import Textarea from "@mui/joy/Textarea";
 import TextField from "@mui/material/TextField";
-import FormControl from '@mui/joy/FormControl';
-import FormLabel from '@mui/joy/FormLabel';
+import FormControl from "@mui/joy/FormControl";
+import FormLabel from "@mui/joy/FormLabel";
 
 interface Character {
   name: string;
@@ -116,12 +116,18 @@ export default function App() {
   const [characters, setCharacters] = useState<Character[]>([]);
   const [races, setRaces] = useState<Option[]>([]);
   const [classes, setClasses] = useState([]);
-  const [strengthUseState, setStrengthUseState] = useState(0);
-  const [dexterityUseState, setDexterityUseState] = useState(0);
-  const [constitutionUseState, setConstitutionUseState] = useState(0);
-  const [intelligenceUseState, setIntelligenceUseState] = useState(0);
-  const [wisdomUseState, setWisdomUseState] = useState(0);
-  const [charismaUseState, setCharismaUseState] = useState(0);
+  const [strength, setStrength] = useState(0);
+  const [dexterity, setDexterity] = useState(0);
+  const [constitution, setConstitution] = useState(0);
+  const [intelligence, setIntelligence] = useState(0);
+  const [wisdom, setWisdom] = useState(0);
+  const [charisma, setCharisma] = useState(0);
+  const [strengthMod, setStrengthMod] = useState(0);
+  const [dexterityMod, setDexterityMod] = useState(0);
+  const [constitutionMod, setConstitutionMod] = useState(0);
+  const [intelligenceMod, setIntelligenceMod] = useState(0);
+  const [wisdomMod, setWisdomMod] = useState(0);
+  const [charismaMod, setCharismaMod] = useState(0);
   const [subclasses, setSubclasses] = useState([]);
   const [equipment, setEquipment] = useState([]);
   const [spells, setSpells] = useState<Option[]>([]);
@@ -197,76 +203,76 @@ export default function App() {
           );
         });
       if (character.race == "Dragonborn") {
-        setStrengthUseState(2);
-        setDexterityUseState(0);
-        setConstitutionUseState(0);
-        setIntelligenceUseState(0);
-        setWisdomUseState(0);
-        setCharismaUseState(1);
+        setStrength(2);
+        setDexterity(0);
+        setConstitution(0);
+        setIntelligence(0);
+        setWisdom(0);
+        setCharisma(1);
         character.speed = 30;
       } else if (character.race == "Dwarf") {
-        setStrengthUseState(2); //mountain dwarf
-        setDexterityUseState(0);
-        setConstitutionUseState(2);
-        setIntelligenceUseState(0);
-        setWisdomUseState(1); //hill dwarf
-        setCharismaUseState(0);
+        setStrength(2); //mountain dwarf
+        setDexterity(0);
+        setConstitution(2);
+        setIntelligence(0);
+        setWisdom(1); //hill dwarf
+        setCharisma(0);
         character.speed = 25;
       } else if (character.race == "Elf") {
-        setStrengthUseState(0);
-        setDexterityUseState(2);
-        setConstitutionUseState(0);
-        setIntelligenceUseState(1); //high elf
-        setWisdomUseState(1); //wood elf
-        setCharismaUseState(1); //drow / dark elf
+        setStrength(0);
+        setDexterity(2);
+        setConstitution(0);
+        setIntelligence(1); //high elf
+        setWisdom(1); //wood elf
+        setCharisma(1); //drow / dark elf
         character.speed = 30;
       } else if (character.race == "Gnome") {
-        setStrengthUseState(0);
-        setDexterityUseState(1); //forest gnome
-        setConstitutionUseState(1); //rock gnome
-        setIntelligenceUseState(2);
-        setWisdomUseState(0);
-        setCharismaUseState(0);
+        setStrength(0);
+        setDexterity(1); //forest gnome
+        setConstitution(1); //rock gnome
+        setIntelligence(2);
+        setWisdom(0);
+        setCharisma(0);
         character.speed = 25;
       } else if (character.race == "Half-Elf") {
-        setStrengthUseState(0);
-        setDexterityUseState(0);
-        setConstitutionUseState(0);
-        setIntelligenceUseState(0);
-        setWisdomUseState(0);
-        setCharismaUseState(2);
+        setStrength(0);
+        setDexterity(0);
+        setConstitution(0);
+        setIntelligence(0);
+        setWisdom(0);
+        setCharisma(2);
         character.speed = 30;
       } else if (character.race == "Half-Orc") {
-        setStrengthUseState(2);
-        setDexterityUseState(0);
-        setConstitutionUseState(1);
-        setIntelligenceUseState(0);
-        setWisdomUseState(0);
-        setCharismaUseState(0);
+        setStrength(2);
+        setDexterity(0);
+        setConstitution(1);
+        setIntelligence(0);
+        setWisdom(0);
+        setCharisma(0);
         character.speed = 30;
       } else if (character.race == "Halfling") {
-        setStrengthUseState(0);
-        setDexterityUseState(2);
-        setConstitutionUseState(1); //stout halfling
-        setIntelligenceUseState(0);
-        setWisdomUseState(0);
-        setCharismaUseState(1); //lightfoot halfling
+        setStrength(0);
+        setDexterity(2);
+        setConstitution(1); //stout halfling
+        setIntelligence(0);
+        setWisdom(0);
+        setCharisma(1); //lightfoot halfling
         character.speed = 25;
       } else if (character.race == "Human") {
-        setStrengthUseState(1);
-        setDexterityUseState(1);
-        setConstitutionUseState(1);
-        setIntelligenceUseState(1);
-        setWisdomUseState(1);
-        setCharismaUseState(1);
+        setStrength(1);
+        setDexterity(1);
+        setConstitution(1);
+        setIntelligence(1);
+        setWisdom(1);
+        setCharisma(1);
         character.speed = 30;
       } else if (character.race == "Tiefling") {
-        setStrengthUseState(0);
-        setDexterityUseState(0);
-        setConstitutionUseState(0);
-        setIntelligenceUseState(1);
-        setWisdomUseState(0);
-        setCharismaUseState(2);
+        setStrength(0);
+        setDexterity(0);
+        setConstitution(0);
+        setIntelligence(1);
+        setWisdom(0);
+        setCharisma(2);
         character.speed = 30;
       }
     }
@@ -322,6 +328,17 @@ export default function App() {
         );
     }
   }, [character.class || character.race]);
+
+  useEffect(() => {
+    [
+      "strength",
+      "dexterity",
+      "constitution",
+      "intelligence",
+      "wisdom",
+      "charisma",
+    ].map((stat) => setAbilityMod(stat));
+  }, [character]);
 
   const handleChange = (field: keyof Character, value: any) => {
     setCharacter((prev) => ({
@@ -380,6 +397,83 @@ export default function App() {
       prev.filter((score) => score.value !== selectedOption.value)
     );
   };
+
+  function setAbilityMod(ability: string) {
+    let mod: number;
+    switch (ability) {
+      case "strength": {
+        mod = calculateAbilityMod(character.strength);
+        setStrengthMod(mod);
+        break;
+      }
+      case "dexterity": {
+        mod = calculateAbilityMod(character.dexterity);
+        setDexterityMod(mod);
+        break;
+      }
+      case "constitution": {
+        mod = calculateAbilityMod(character.constitution);
+        setConstitutionMod(mod);
+        break;
+      }
+      case "intelligence": {
+        mod = calculateAbilityMod(character.intelligence);
+        setIntelligenceMod(mod);
+        break;
+      }
+      case "wisdom": {
+        mod = calculateAbilityMod(character.wisdom);
+        setWisdomMod(mod);
+        break;
+      }
+      case "charisma": {
+        console.log(character.charisma)
+        mod = calculateAbilityMod(character.charisma);
+        console.log(mod)
+        setCharismaMod(mod);
+        console.log(charismaMod)
+        break;
+      }
+    }
+  }
+
+  function calculateAbilityMod(ability: number) {
+    if (ability === 1) {
+      return -5;
+    } else if (ability === 2 || ability === 3) {
+      return -4;
+    } else if (ability === 4 || ability === 5) {
+      return -3;
+    } else if (ability === 6 || ability === 7) {
+      return -2;
+    } else if (ability === 8 || ability === 9) {
+      return -1;
+    } else if (ability === 10 || ability === 11) {
+      return 0;
+    } else if (ability === 12 || ability === 13) {
+      return 1;
+    } else if (ability === 14 || ability === 15) {
+      return 2;
+    } else if (ability === 16 || ability === 17) {
+      return 3;
+    } else if (ability === 18 || ability === 19) {
+      return 4;
+    } else if (ability === 20 || ability === 21) {
+      return 5;
+    } else if (ability === 22 || ability === 23) {
+      return 6;
+    } else if (ability === 24 || ability === 25) {
+      return 7;
+    } else if (ability === 26 || ability === 27) {
+      return 8;
+    } else if (ability === 28 || ability === 29) {
+      return 9;
+    } else if (ability === 30) {
+      return 10;
+    } else {
+      return 0;
+    }
+  }
 
   /*const handleSpellHover = async (spellName: string | number) => {
     if (!spellDescriptions[spellName]) {
@@ -443,7 +537,7 @@ export default function App() {
         />
       </label>
       {/* Ability Scores Inputs */}
-      {[
+      {/*[
         "strength",
         "dexterity",
         "constitution",
@@ -459,51 +553,111 @@ export default function App() {
             className="text-black"
           />
         </label>
-      ))}
-      {[
-        "strengthMod",
-        "dexterityMod",
-        "constitutionMod",
-        "intelligenceMod",
-        "wisdomMod",
-        "charismaMod",
-      ].map((stat) => (
-        <label key={stat} className="block mb-2">
-          {stat.charAt(0).toUpperCase() + stat.slice(1)}:
-          <input
-            type="number"
-            value={stat}
-            onChange={(e) =>
-              setCharacter({ ...character, [stat]: parseInt(e.target.value) })
-            }
-            className="w-full p-2 text-black rounded"
-            min="-5"
-            max="10"
-          />
-        </label>
-      ))}
+      ))*/}
+      <label className="block mb-2">
+        Strength:
+        <input
+          type="number"
+          value={character.strength}
+          onChange={(e) =>
+            setCharacter({ ...character, strength: parseInt(e.target.value) })
+          }
+          className="w-full p-2 text-black rounded"
+          min="1"
+          max="30"
+        />
+      </label>
+      <label className="block mb-2">
+      Dexterity:
+        <input
+          type="number"
+          value={character.dexterity}
+          onChange={(e) =>
+            setCharacter({ ...character, dexterity: parseInt(e.target.value) })
+          }
+          className="w-full p-2 text-black rounded"
+          min="1"
+          max="30"
+        />
+      </label>
+      <label className="block mb-2">
+      Constitution:
+        <input
+          type="number"
+          value={character.constitution}
+          onChange={(e) =>
+            setCharacter({ ...character, constitution: parseInt(e.target.value) })
+          }
+          className="w-full p-2 text-black rounded"
+          min="1"
+          max="30"
+        />
+      </label>
+      <label className="block mb-2">
+      Intelligence:
+        <input
+          type="number"
+          value={character.intelligence}
+          onChange={(e) =>
+            setCharacter({ ...character, intelligence: parseInt(e.target.value) })
+          }
+          className="w-full p-2 text-black rounded"
+          min="1"
+          max="30"
+        />
+      </label>
+      <label className="block mb-2">
+      Wisdom:
+        <input
+          type="number"
+          value={character.wisdom}
+          onChange={(e) =>
+            setCharacter({ ...character, wisdom: parseInt(e.target.value) })
+          }
+          className="w-full p-2 text-black rounded"
+          min="1"
+          max="30"
+        />
+      </label>
+      <label className="block mb-2">
+      Charisma:
+        <input
+          type="number"
+          value={character.charisma}
+          onChange={(e) =>
+            setCharacter({ ...character, charisma: parseInt(e.target.value) })
+          }
+          className="w-full p-2 text-black rounded"
+          min="1"
+          max="30"
+        />
+      </label>
+      <br />
+      {"StrengthMod: " + (strengthMod + " ")}
+      {"DexterityMod: " + (dexterityMod + " ")}
+      {"ConstitutionMod: " + (constitutionMod + " ")}
+      {"IntelligenceMod: " +
+        (intelligenceMod +
+          " ")}
+      {"WisdomMod: " + (wisdomMod + " ")}
+      {"CharismaMod: " + (charismaMod)}
       <br />
       {"Strength: " +
-        (strengthUseState + character.strength + character.strengthMod + " ")}
+        (strength + character.strength + strengthMod + " ")}
       {"Dexterity: " +
-        (dexterityUseState +
-          character.dexterity +
-          character.dexterityMod +
-          " ")}
+        (dexterity + character.dexterity + dexterityMod + " ")}
       {"Constitution: " +
-        (constitutionUseState +
+        (constitution +
           character.constitution +
-          character.constitutionMod +
+          constitutionMod +
           " ")}
       {"Intelligence: " +
-        (intelligenceUseState +
+        (intelligence +
           character.intelligence +
-          character.intelligenceMod +
+          intelligenceMod +
           " ")}
-      {"Wisdom: " +
-        (wisdomUseState + character.wisdom + character.wisdomMod + " ")}
-      {"Charisma: " +
-        (charismaUseState + character.charisma + character.charismaMod)}
+      {"Wisdom: " + (wisdom + character.wisdom + wisdomMod + " ")}
+      {"Charisma: " + (charisma + character.charisma + charismaMod)}
       <br />
       {/* Equipment and Spells */}
       <label className="block mb-2">
@@ -583,8 +737,8 @@ export default function App() {
           max="20"
         />
       </label>
-        <FormControl>
-      <FormLabel>Traits:</FormLabel>
+      <FormControl>
+        <FormLabel>Traits:</FormLabel>
         <Textarea
           value={traits.map((item: { value: any }) => item.value).join(", ")} // Convert array to string
           onChange={(e) =>
@@ -767,7 +921,7 @@ export default function App() {
         />
       </label>
       <FormControl>
-      <FormLabel>Languages:</FormLabel>
+        <FormLabel>Languages:</FormLabel>
         <Textarea
           value={languages.map((item: { value: any }) => item.value).join(", ")} // Convert array to string
           onChange={(e) =>
@@ -791,7 +945,7 @@ export default function App() {
         />
       </label>
       <FormControl>
-      <FormLabel>Proficiencies:</FormLabel>
+        <FormLabel>Proficiencies:</FormLabel>
         <Textarea
           value={proficiencies
             .map((item: { value: any }) => item.value)
