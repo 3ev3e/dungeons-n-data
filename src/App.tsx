@@ -4,9 +4,16 @@ import Textarea from "@mui/joy/Textarea";
 import TextField from "@mui/material/TextField";
 import FormControl from "@mui/joy/FormControl";
 import FormLabel from "@mui/joy/FormLabel";
-import select from "./components/atoms/select";
 import Character from "./types/interface/character";
 import Option from "./types/interface/option";
+import "./App.css";
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import characterHeaderEdit from "./components/organisms/characterHeaderEdit";
+
 
 export default function App() {
   const [character, setCharacter] = useState<Character>({
@@ -459,491 +466,404 @@ export default function App() {
 
   return (
     <div className="p-4 max-w-md mx-auto bg-gray-800 text-white rounded-lg shadow-md">
-      <h1 className="text-xl font-bold mb-4">D&D Character Builder</h1>
-      {/* Character Inputs */}
-      <label className="block mb-2">
-        Name:
-        <input
-          type="text"
-          value={character.name}
-          onChange={(e) => setCharacter({ ...character, name: e.target.value })}
-          className="w-full p-2 text-black rounded"
-        />
-      </label>
-      <br />
-      <label className="block mb-2">
-        Level:
-        <input
-          type="number"
-          value={character.level}
-          onChange={(e) =>
-            setCharacter({ ...character, level: parseInt(e.target.value) })
-          }
-          className="w-full p-2 text-black rounded"
-          min="1"
-          max="20"
-        />
-      </label>
-      <br />
-      <label className="block mb-2">
-        Race:
-        <Select
-          options={races}
-          onChange={(selected: Option | null) =>
-            selected && handleChange("race", selected.value)
-          }
-          className="text-black"
-        />
-      </label>
-      <label className="block mb-2">
-        Class:
-        <Select
-          options={classes}
-          onChange={(selected: Option | null) =>
-            selected && handleChange("class", selected.value)
-          }
-          className="text-black"
-        />
-      </label>
-      {/* Ability Scores Inputs */}
-      {/*[
-        "strength",
-        "dexterity",
-        "constitution",
-        "intelligence",
-        "wisdom",
-        "charisma",
-      ].map((stat) => (
-        <label key={stat} className="block mb-2">
-          {stat.charAt(0).toUpperCase() + stat.slice(1)}:
-          <Select
-            options={abilityScores}
-            onChange={(selected: any) => handleStatChange(selected, stat)}
-            className="text-black"
-          />
+      <Box sx={{ flexGrow: 1 }}>
+      <AppBar position="static" sx={{backgroundColor: "#152a45"}}>
+        <Toolbar>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          D&D Character Builder
+          </Typography>
+          <Button color="inherit">Login</Button>
+        </Toolbar>
+      </AppBar>
+    </Box>
+    {characterHeaderEdit(classes, races)}
+        {/* Character Inputs */}
+        <label className="block mb-2">
+          Name:
+          <input
+            type="text"
+            value={character.name}
+            onChange={(e) => setCharacter({ ...character, name: e.target.value })}
+            className="w-full p-2 text-black rounded" />
         </label>
-      ))*/}
-      <label className="block mb-2">
-        Strength:
-        <input
-          type="number"
-          value={character.strength}
-          onChange={(e) =>
-            setCharacter({ ...character, strength: parseInt(e.target.value) })
-          }
-          className="w-full p-2 text-black rounded"
-          min="1"
-          max="30"
+        <br />
+        <label className="block mb-2">
+          Level:
+          <input
+            type="number"
+            value={character.level}
+            onChange={(e) => setCharacter({ ...character, level: parseInt(e.target.value) })}
+            className="w-full p-2 text-black rounded"
+            min="1"
+            max="20" />
+        </label>
+        <br />
+        <label className="block mb-2">
+          Race:
+          <Select
+            options={races}
+            onChange={(selected: Option | null) => selected && handleChange("race", selected.value)}
+            className="text-black" />
+        </label>
+        <label className="block mb-2">
+          Class:
+          <Select
+            options={classes}
+            onChange={(selected: Option | null) => selected && handleChange("class", selected.value)}
+            className="text-black" />
+        </label>
+        {/* Ability Scores Inputs */}
+        {/*[
+      "strength",
+      "dexterity",
+      "constitution",
+      "intelligence",
+      "wisdom",
+      "charisma",
+    ].map((stat) => (
+      <label key={stat} className="block mb-2">
+        {stat.charAt(0).toUpperCase() + stat.slice(1)}:
+        <Select
+          options={abilityScores}
+          onChange={(selected: any) => handleStatChange(selected, stat)}
+          className="text-black"
         />
       </label>
-      <label className="block mb-2">
-        Dexterity:
-        <input
-          type="number"
-          value={character.dexterity}
-          onChange={(e) =>
-            setCharacter({ ...character, dexterity: parseInt(e.target.value) })
-          }
-          className="w-full p-2 text-black rounded"
-          min="1"
-          max="30"
-        />
-      </label>
-      <label className="block mb-2">
-        Constitution:
-        <input
-          type="number"
-          value={character.constitution}
-          onChange={(e) =>
-            setCharacter({
+    ))*/}
+        <label className="block mb-2">
+          Strength:
+          <input
+            type="number"
+            value={character.strength}
+            onChange={(e) => setCharacter({ ...character, strength: parseInt(e.target.value) })}
+            className="w-full p-2 text-black rounded"
+            min="1"
+            max="30" />
+        </label>
+        <label className="block mb-2">
+          Dexterity:
+          <input
+            type="number"
+            value={character.dexterity}
+            onChange={(e) => setCharacter({ ...character, dexterity: parseInt(e.target.value) })}
+            className="w-full p-2 text-black rounded"
+            min="1"
+            max="30" />
+        </label>
+        <label className="block mb-2">
+          Constitution:
+          <input
+            type="number"
+            value={character.constitution}
+            onChange={(e) => setCharacter({
               ...character,
               constitution: parseInt(e.target.value),
-            })
-          }
-          className="w-full p-2 text-black rounded"
-          min="1"
-          max="30"
-        />
-      </label>
-      <label className="block mb-2">
-        Intelligence:
-        <input
-          type="number"
-          value={character.intelligence}
-          onChange={(e) =>
-            setCharacter({
+            })}
+            className="w-full p-2 text-black rounded"
+            min="1"
+            max="30" />
+        </label>
+        <label className="block mb-2">
+          Intelligence:
+          <input
+            type="number"
+            value={character.intelligence}
+            onChange={(e) => setCharacter({
               ...character,
               intelligence: parseInt(e.target.value),
-            })
-          }
-          className="w-full p-2 text-black rounded"
-          min="1"
-          max="30"
-        />
-      </label>
-      <label className="block mb-2">
-        Wisdom:
-        <input
-          type="number"
-          value={character.wisdom}
-          onChange={(e) =>
-            setCharacter({ ...character, wisdom: parseInt(e.target.value) })
-          }
-          className="w-full p-2 text-black rounded"
-          min="1"
-          max="30"
-        />
-      </label>
-      <label className="block mb-2">
-        Charisma:
-        <input
-          type="number"
-          value={character.charisma}
-          onChange={(e) =>
-            setCharacter({ ...character, charisma: parseInt(e.target.value) })
-          }
-          className="w-full p-2 text-black rounded"
-          min="1"
-          max="30"
-        />
-      </label>
-      <br />
-      {"StrengthMod: " + (strengthMod + " ")}
-      {"DexterityMod: " + (dexterityMod + " ")}
-      {"ConstitutionMod: " + (constitutionMod + " ")}
-      {"IntelligenceMod: " + (intelligenceMod + " ")}
-      {"WisdomMod: " + (wisdomMod + " ")}
-      {"CharismaMod: " + charismaMod}
-      <br />
-      {"Strength: " + (strength + character.strength + strengthMod + " ")}
-      {"Dexterity: " + (dexterity + character.dexterity + dexterityMod + " ")}
-      {"Constitution: " +
-        (constitution + character.constitution + constitutionMod + " ")}
-      {"Intelligence: " +
-        (intelligence + character.intelligence + intelligenceMod + " ")}
-      {"Wisdom: " + (wisdom + character.wisdom + wisdomMod + " ")}
-      {"Charisma: " + (charisma + character.charisma + charismaMod)}
-      <br />
-      {/* Equipment and Spells */}
-      <label className="block mb-2">
-        Equipment:
-        <Select
-          options={equipment}
-          isMulti
-          onChange={(selected) =>
-            setCharacter({
+            })}
+            className="w-full p-2 text-black rounded"
+            min="1"
+            max="30" />
+        </label>
+        <label className="block mb-2">
+          Wisdom:
+          <input
+            type="number"
+            value={character.wisdom}
+            onChange={(e) => setCharacter({ ...character, wisdom: parseInt(e.target.value) })}
+            className="w-full p-2 text-black rounded"
+            min="1"
+            max="30" />
+        </label>
+        <label className="block mb-2">
+          Charisma:
+          <input
+            type="number"
+            value={character.charisma}
+            onChange={(e) => setCharacter({ ...character, charisma: parseInt(e.target.value) })}
+            className="w-full p-2 text-black rounded"
+            min="1"
+            max="30" />
+        </label>
+        <br />
+        {"StrengthMod: " + (strengthMod + " ")}
+        {"DexterityMod: " + (dexterityMod + " ")}
+        {"ConstitutionMod: " + (constitutionMod + " ")}
+        {"IntelligenceMod: " + (intelligenceMod + " ")}
+        {"WisdomMod: " + (wisdomMod + " ")}
+        {"CharismaMod: " + charismaMod}
+        <br />
+        {"Strength: " + (strength + character.strength + strengthMod + " ")}
+        {"Dexterity: " + (dexterity + character.dexterity + dexterityMod + " ")}
+        {"Constitution: " +
+          (constitution + character.constitution + constitutionMod + " ")}
+        {"Intelligence: " +
+          (intelligence + character.intelligence + intelligenceMod + " ")}
+        {"Wisdom: " + (wisdom + character.wisdom + wisdomMod + " ")}
+        {"Charisma: " + (charisma + character.charisma + charismaMod)}
+        <br />
+        {/* Equipment and Spells */}
+        <label className="block mb-2">
+          Equipment:
+          <Select
+            options={equipment}
+            isMulti
+            onChange={(selected) => setCharacter({
               ...character,
-              equipment: selected.map((item: { value: any }) => item.value),
-            })
-          }
-          className="text-black"
-        />
-      </label>
-      <label className="block mb-2">
-        Spells (Level {character.level} or lower):
-        <Select
-          options={spells.filter((spell) => spell.level <= character.level)}
-          isMulti
-          onChange={(selected) =>
-            setCharacter({
+              equipment: selected.map((item: { value: any; }) => item.value),
+            })}
+            className="text-black" />
+        </label>
+        <label className="block mb-2">
+          Spells (Level {character.level} or lower):
+          <Select
+            options={spells.filter((spell) => spell.level <= character.level)}
+            isMulti
+            onChange={(selected) => setCharacter({
               ...character,
-              spells: selected.map((item: { value: any }) => item.value),
-            })
-          }
-          className="text-black"
-        />
-      </label>
-      <label className="block mb-2">
-        ArmorClass:
-        <input
+              spells: selected.map((item: { value: any; }) => item.value),
+            })}
+            className="text-black" />
+        </label>
+        <label className="block mb-2">
+          ArmorClass:
+          <input
+            type="number"
+            value={character.armorClass}
+            onChange={(e) => setCharacter({ ...character, armorClass: parseInt(e.target.value) })}
+            className="w-full p-2 text-black rounded"
+            min="1"
+            max="20" />
+        </label>
+        <label className="block mb-2">
+          Initiative:
+          <input
+            type="number"
+            value={character.initiative}
+            onChange={(e) => setCharacter({ ...character, initiative: parseInt(e.target.value) })}
+            className="w-full p-2 text-black rounded"
+            min="1"
+            max="20" />
+        </label>
+        <TextField
+          disabled
+          id="speed-field"
+          label="Speed"
           type="number"
-          value={character.armorClass}
-          onChange={(e) =>
-            setCharacter({ ...character, armorClass: parseInt(e.target.value) })
-          }
-          className="w-full p-2 text-black rounded"
-          min="1"
-          max="20"
-        />
-      </label>
-      <label className="block mb-2">
-        Initiative:
-        <input
-          type="number"
-          value={character.initiative}
-          onChange={(e) =>
-            setCharacter({ ...character, initiative: parseInt(e.target.value) })
-          }
-          className="w-full p-2 text-black rounded"
-          min="1"
-          max="20"
-        />
-      </label>
-      <TextField
-        disabled
-        id="speed-field"
-        label="Speed"
-        type="number"
-        value={character.speed}
-        onChange={(e) =>
-          setCharacter({ ...character, speed: parseInt(e.target.value) })
-        }
-      />
-      <label className="block mb-2">
-        MaxHP:
-        <input
-          type="number"
-          value={character.maxHP}
-          onChange={(e) =>
-            setCharacter({ ...character, maxHP: parseInt(e.target.value) })
-          }
-          className="w-full p-2 text-black rounded"
-          min="1"
-          max="20"
-        />
-      </label>
-      <FormControl>
-        <FormLabel>Traits:</FormLabel>
-        <Textarea
-          value={traits.map((item: { value: any }) => item.value).join(", ")} // Convert array to string
-          onChange={(e) =>
-            setCharacter({
+          value={character.speed}
+          onChange={(e) => setCharacter({ ...character, speed: parseInt(e.target.value) })} />
+        <label className="block mb-2">
+          MaxHP:
+          <input
+            type="number"
+            value={character.maxHP}
+            onChange={(e) => setCharacter({ ...character, maxHP: parseInt(e.target.value) })}
+            className="w-full p-2 text-black rounded"
+            min="1"
+            max="20" />
+        </label>
+        <FormControl>
+          <FormLabel>Traits:</FormLabel>
+          <Textarea
+            value={traits.map((item: { value: any; }) => item.value).join(", ")} // Convert array to string
+            onChange={(e) => setCharacter({
               ...character,
               traits: e.target.value.split(",").map((item) => item.trim()), // Convert back to array
-            })
-          }
-          className="text-black"
-        />
-      </FormControl>
-      <label className="block mb-2">
-        Personality:
-        <input
-          type="text"
-          value={character.personality}
-          onChange={(e) =>
-            setCharacter({ ...character, personality: e.target.value })
-          }
-          className="w-full p-2 text-black rounded"
-        />
-      </label>
-      <label className="block mb-2">
-        Ideals:
-        <input
-          type="text"
-          value={character.ideals}
-          onChange={(e) =>
-            setCharacter({ ...character, ideals: e.target.value })
-          }
-          className="w-full p-2 text-black rounded"
-        />
-      </label>
-      <label className="block mb-2">
-        Bonds:
-        <input
-          type="text"
-          value={character.bonds}
-          onChange={(e) =>
-            setCharacter({ ...character, bonds: e.target.value })
-          }
-          className="w-full p-2 text-black rounded"
-        />
-      </label>
-      <label className="block mb-2">
-        Flaws:
-        <input
-          type="text"
-          value={character.flaws}
-          onChange={(e) =>
-            setCharacter({ ...character, flaws: e.target.value })
-          }
-          className="w-full p-2 text-black rounded"
-        />
-      </label>
-      <label className="block mb-2">
-        Allies:
-        <input
-          type="text"
-          value={character.allies}
-          onChange={(e) =>
-            setCharacter({ ...character, allies: e.target.value })
-          }
-          className="w-full p-2 text-black rounded"
-        />
-      </label>
-      <label className="block mb-2">
-        Backstory:
-        <input
-          type="text"
-          value={character.backstory}
-          onChange={(e) =>
-            setCharacter({ ...character, backstory: e.target.value })
-          }
-          className="w-full p-2 text-black rounded"
-        />
-      </label>
-      <label className="block mb-2">
-        Gold:
-        <input
-          type="number"
-          value={character.gold}
-          onChange={(e) =>
-            setCharacter({ ...character, gold: parseInt(e.target.value) })
-          }
-          className="w-full p-2 text-black rounded"
-          min="0"
-        />
-      </label>
-      <label className="block mb-2">
-        Age:
-        <input
-          type="number"
-          value={character.age}
-          onChange={(e) =>
-            setCharacter({ ...character, age: parseInt(e.target.value) })
-          }
-          className="w-full p-2 text-black rounded"
-          min="0"
-        />
-      </label>
-      <label className="block mb-2">
-        Height:
-        <input
-          type="number"
-          value={character.height}
-          onChange={(e) =>
-            setCharacter({ ...character, height: parseInt(e.target.value) })
-          }
-          className="w-full p-2 text-black rounded"
-          min="0"
-        />
-      </label>
-      <label className="block mb-2">
-        Weight:
-        <input
-          type="number"
-          value={character.weight}
-          onChange={(e) =>
-            setCharacter({ ...character, weight: parseInt(e.target.value) })
-          }
-          className="w-full p-2 text-black rounded"
-          min="0"
-        />
-      </label>
-      <label className="block mb-2">
-        Eyes:
-        <input
-          type="text"
-          value={character.eyes}
-          onChange={(e) => setCharacter({ ...character, eyes: e.target.value })}
-          className="w-full p-2 text-black rounded"
-        />
-      </label>
-      <label className="block mb-2">
-        Skin:
-        <input
-          type="text"
-          value={character.skin}
-          onChange={(e) => setCharacter({ ...character, skin: e.target.value })}
-          className="w-full p-2 text-black rounded"
-        />
-      </label>
-      <label className="block mb-2">
-        Hair:
-        <input
-          type="text"
-          value={character.hair}
-          onChange={(e) => setCharacter({ ...character, hair: e.target.value })}
-          className="w-full p-2 text-black rounded"
-        />
-      </label>
-      <label className="block mb-2">
-        ProfBonus:
-        <input
-          type="number"
-          value={character.profBonus}
-          onChange={(e) =>
-            setCharacter({ ...character, profBonus: parseInt(e.target.value) })
-          }
-          className="w-full p-2 text-black rounded"
-          min="0"
-          max="20"
-        />
-      </label>
-      <label className="block mb-2">
-        PassiveWisdom:
-        <input
-          type="number"
-          value={character.passiveWisdom}
-          onChange={(e) =>
-            setCharacter({
+            })}
+            className="text-black" />
+        </FormControl>
+        <label className="block mb-2">
+          Personality:
+          <input
+            type="text"
+            value={character.personality}
+            onChange={(e) => setCharacter({ ...character, personality: e.target.value })}
+            className="w-full p-2 text-black rounded" />
+        </label>
+        <label className="block mb-2">
+          Ideals:
+          <input
+            type="text"
+            value={character.ideals}
+            onChange={(e) => setCharacter({ ...character, ideals: e.target.value })}
+            className="w-full p-2 text-black rounded" />
+        </label>
+        <label className="block mb-2">
+          Bonds:
+          <input
+            type="text"
+            value={character.bonds}
+            onChange={(e) => setCharacter({ ...character, bonds: e.target.value })}
+            className="w-full p-2 text-black rounded" />
+        </label>
+        <label className="block mb-2">
+          Flaws:
+          <input
+            type="text"
+            value={character.flaws}
+            onChange={(e) => setCharacter({ ...character, flaws: e.target.value })}
+            className="w-full p-2 text-black rounded" />
+        </label>
+        <label className="block mb-2">
+          Allies:
+          <input
+            type="text"
+            value={character.allies}
+            onChange={(e) => setCharacter({ ...character, allies: e.target.value })}
+            className="w-full p-2 text-black rounded" />
+        </label>
+        <label className="block mb-2">
+          Backstory:
+          <input
+            type="text"
+            value={character.backstory}
+            onChange={(e) => setCharacter({ ...character, backstory: e.target.value })}
+            className="w-full p-2 text-black rounded" />
+        </label>
+        <label className="block mb-2">
+          Gold:
+          <input
+            type="number"
+            value={character.gold}
+            onChange={(e) => setCharacter({ ...character, gold: parseInt(e.target.value) })}
+            className="w-full p-2 text-black rounded"
+            min="0" />
+        </label>
+        <label className="block mb-2">
+          Age:
+          <input
+            type="number"
+            value={character.age}
+            onChange={(e) => setCharacter({ ...character, age: parseInt(e.target.value) })}
+            className="w-full p-2 text-black rounded"
+            min="0" />
+        </label>
+        <label className="block mb-2">
+          Height:
+          <input
+            type="number"
+            value={character.height}
+            onChange={(e) => setCharacter({ ...character, height: parseInt(e.target.value) })}
+            className="w-full p-2 text-black rounded"
+            min="0" />
+        </label>
+        <label className="block mb-2">
+          Weight:
+          <input
+            type="number"
+            value={character.weight}
+            onChange={(e) => setCharacter({ ...character, weight: parseInt(e.target.value) })}
+            className="w-full p-2 text-black rounded"
+            min="0" />
+        </label>
+        <label className="block mb-2">
+          Eyes:
+          <input
+            type="text"
+            value={character.eyes}
+            onChange={(e) => setCharacter({ ...character, eyes: e.target.value })}
+            className="w-full p-2 text-black rounded" />
+        </label>
+        <label className="block mb-2">
+          Skin:
+          <input
+            type="text"
+            value={character.skin}
+            onChange={(e) => setCharacter({ ...character, skin: e.target.value })}
+            className="w-full p-2 text-black rounded" />
+        </label>
+        <label className="block mb-2">
+          Hair:
+          <input
+            type="text"
+            value={character.hair}
+            onChange={(e) => setCharacter({ ...character, hair: e.target.value })}
+            className="w-full p-2 text-black rounded" />
+        </label>
+        <label className="block mb-2">
+          ProfBonus:
+          <input
+            type="number"
+            value={character.profBonus}
+            onChange={(e) => setCharacter({ ...character, profBonus: parseInt(e.target.value) })}
+            className="w-full p-2 text-black rounded"
+            min="0"
+            max="20" />
+        </label>
+        <label className="block mb-2">
+          PassiveWisdom:
+          <input
+            type="number"
+            value={character.passiveWisdom}
+            onChange={(e) => setCharacter({
               ...character,
               passiveWisdom: parseInt(e.target.value),
-            })
-          }
-          className="w-full p-2 text-black rounded"
-          min="0"
-          max="20"
-        />
-      </label>
-      <FormControl>
-        <FormLabel>Languages:</FormLabel>
-        <Textarea
-          value={languages.map((item: { value: any }) => item.value).join(", ")} // Convert array to string
-          onChange={(e) =>
-            setCharacter({
+            })}
+            className="w-full p-2 text-black rounded"
+            min="0"
+            max="20" />
+        </label>
+        <FormControl>
+          <FormLabel>Languages:</FormLabel>
+          <Textarea
+            value={languages.map((item: { value: any; }) => item.value).join(", ")} // Convert array to string
+            onChange={(e) => setCharacter({
               ...character,
               languages: e.target.value.split(",").map((item) => item.trim()), // Convert back to array
-            })
-          }
-          className="text-black"
-        />
-      </FormControl>
-      <label className="block mb-2">
-        FeaturesTraits:
-        <input
-          type="text"
-          value={character.featuresTraits}
-          onChange={(set) =>
-            set && handleChange("featuresTraits", set.target.value)
-          }
-          className="w-full p-2 text-black rounded"
-        />
-      </label>
-      <FormControl>
-        <FormLabel>Proficiencies:</FormLabel>
-        <Textarea
-          value={proficiencies
-            .map((item: { value: any }) => item.value)
-            .join(", ")} // Convert array to string
-          onChange={(e) =>
-            setCharacter({
+            })}
+            className="text-black" />
+        </FormControl>
+        <label className="block mb-2">
+          FeaturesTraits:
+          <input
+            type="text"
+            value={character.featuresTraits}
+            onChange={(set) => set && handleChange("featuresTraits", set.target.value)}
+            className="w-full p-2 text-black rounded" />
+        </label>
+        <FormControl>
+          <FormLabel>Proficiencies:</FormLabel>
+          <Textarea
+            value={proficiencies
+              .map((item: { value: any; }) => item.value)
+              .join(", ")} // Convert array to string
+            onChange={(e) => setCharacter({
               ...character,
               proficiencies: e.target.value
                 .split(",")
                 .map((item) => item.trim()), // Convert back to array
-            })
-          }
-          className="text-black"
-        />
-      </FormControl>
-      {/* Save Character Button */}
-      <button
-        onClick={handleSaveCharacter}
-        className="mt-4 p-2 bg-blue-600 text-white rounded"
-      >
-        Save Character
-      </button>
-      {/* Display All Saved Characters */}
-      <div className="mt-6">
-        <h3 className="font-bold">Saved Characters:</h3>
-        <ul>
-          {characters.map((char, index) => (
-            <li key={index}>
-              <strong>{char.name}</strong> ({char.class} - {char.level})
-            </li>
-          ))}
-        </ul>
+            })}
+            className="text-black" />
+        </FormControl>
+        {/* Save Character Button */}
+        <button
+          onClick={handleSaveCharacter}
+          className="mt-4 p-2 bg-blue-600 text-white rounded"
+        >
+          Save Character
+        </button>
+        {/* Display All Saved Characters */}
+        <div className="mt-6">
+          <h3 className="font-bold">Saved Characters:</h3>
+          <ul>
+            {characters.map((char, index) => (
+              <li key={index}>
+                <strong>{char.name}</strong> ({char.class} - {char.level})
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
-    </div>
   );
 }
