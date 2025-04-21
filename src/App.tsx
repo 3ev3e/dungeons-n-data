@@ -4,56 +4,9 @@ import Textarea from "@mui/joy/Textarea";
 import TextField from "@mui/material/TextField";
 import FormControl from "@mui/joy/FormControl";
 import FormLabel from "@mui/joy/FormLabel";
-
-interface Character {
-  name: string;
-  race: string;
-  class: string;
-  level: number;
-  strength: number;
-  dexterity: number;
-  constitution: number;
-  intelligence: number;
-  wisdom: number;
-  charisma: number;
-  strengthMod: number;
-  dexterityMod: number;
-  constitutionMod: number;
-  intelligenceMod: number;
-  wisdomMod: number;
-  charismaMod: number;
-  armorClass: number;
-  initiative: number;
-  speed: number;
-  maxHP: number;
-  spells: string[];
-  equipment: string[];
-  traits: string[];
-  personality: string;
-  ideals: string;
-  bonds: string;
-  flaws: string;
-  allies: string;
-  backstory: string;
-  gold: number;
-  age: number;
-  height: number;
-  weight: number;
-  eyes: string;
-  skin: string;
-  hair: string;
-  profBonus: number;
-  passiveWisdom: number;
-  languages: string[];
-  featuresTraits: string[];
-  proficiencies: string[];
-}
-
-interface Option {
-  level: number;
-  label: string;
-  value: string;
-}
+import select from "./components/atoms/select";
+import Character from "./types/interface/character";
+import Option from "./types/interface/option";
 
 export default function App() {
   const [character, setCharacter] = useState<Character>({
@@ -326,6 +279,25 @@ export default function App() {
               : []
           )
         );
+        //rework equipment
+      /*fetch(
+        `https://www.dnd5eapi.co/api/classes/${character.class
+          .toString()
+          .toLowerCase()}`
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data.starting_equipment[0].equipment)
+          setEquipment(
+              data.starting_equipment.results.map(
+                  (equipment: { name: any }) => ({
+                    label: equipment.name,
+                    value: equipment.name,
+                  })
+                )
+              
+        )}
+        );*/
     }
   }, [character.class || character.race]);
 
@@ -341,7 +313,7 @@ export default function App() {
   }, [character]);
 
   const handleChange = (field: keyof Character, value: any) => {
-    setCharacter((prev) => ({
+    setCharacter((prev: any) => ({
       ...prev,
       [field]: value,
     }));
@@ -427,11 +399,8 @@ export default function App() {
         break;
       }
       case "charisma": {
-        console.log(character.charisma)
         mod = calculateAbilityMod(character.charisma);
-        console.log(mod)
         setCharismaMod(mod);
-        console.log(charismaMod)
         break;
       }
     }
@@ -568,7 +537,7 @@ export default function App() {
         />
       </label>
       <label className="block mb-2">
-      Dexterity:
+        Dexterity:
         <input
           type="number"
           value={character.dexterity}
@@ -581,12 +550,15 @@ export default function App() {
         />
       </label>
       <label className="block mb-2">
-      Constitution:
+        Constitution:
         <input
           type="number"
           value={character.constitution}
           onChange={(e) =>
-            setCharacter({ ...character, constitution: parseInt(e.target.value) })
+            setCharacter({
+              ...character,
+              constitution: parseInt(e.target.value),
+            })
           }
           className="w-full p-2 text-black rounded"
           min="1"
@@ -594,12 +566,15 @@ export default function App() {
         />
       </label>
       <label className="block mb-2">
-      Intelligence:
+        Intelligence:
         <input
           type="number"
           value={character.intelligence}
           onChange={(e) =>
-            setCharacter({ ...character, intelligence: parseInt(e.target.value) })
+            setCharacter({
+              ...character,
+              intelligence: parseInt(e.target.value),
+            })
           }
           className="w-full p-2 text-black rounded"
           min="1"
@@ -607,7 +582,7 @@ export default function App() {
         />
       </label>
       <label className="block mb-2">
-      Wisdom:
+        Wisdom:
         <input
           type="number"
           value={character.wisdom}
@@ -620,7 +595,7 @@ export default function App() {
         />
       </label>
       <label className="block mb-2">
-      Charisma:
+        Charisma:
         <input
           type="number"
           value={character.charisma}
@@ -636,26 +611,16 @@ export default function App() {
       {"StrengthMod: " + (strengthMod + " ")}
       {"DexterityMod: " + (dexterityMod + " ")}
       {"ConstitutionMod: " + (constitutionMod + " ")}
-      {"IntelligenceMod: " +
-        (intelligenceMod +
-          " ")}
+      {"IntelligenceMod: " + (intelligenceMod + " ")}
       {"WisdomMod: " + (wisdomMod + " ")}
-      {"CharismaMod: " + (charismaMod)}
+      {"CharismaMod: " + charismaMod}
       <br />
-      {"Strength: " +
-        (strength + character.strength + strengthMod + " ")}
-      {"Dexterity: " +
-        (dexterity + character.dexterity + dexterityMod + " ")}
+      {"Strength: " + (strength + character.strength + strengthMod + " ")}
+      {"Dexterity: " + (dexterity + character.dexterity + dexterityMod + " ")}
       {"Constitution: " +
-        (constitution +
-          character.constitution +
-          constitutionMod +
-          " ")}
+        (constitution + character.constitution + constitutionMod + " ")}
       {"Intelligence: " +
-        (intelligence +
-          character.intelligence +
-          intelligenceMod +
-          " ")}
+        (intelligence + character.intelligence + intelligenceMod + " ")}
       {"Wisdom: " + (wisdom + character.wisdom + wisdomMod + " ")}
       {"Charisma: " + (charisma + character.charisma + charismaMod)}
       <br />
