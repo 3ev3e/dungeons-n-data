@@ -1,8 +1,17 @@
 import Character from "../../types/interface/character";
 import numberField from "../atoms/numberField";
 
-export default function sectionAbilities(
-strengthMod: number, strength: number, character: Character) {
+type Props = {
+  strengthMod: number;
+  strength: number;
+  character: Character;
+};
+
+export default function SectionAbilities({
+  strengthMod,
+  strength,
+  character,
+}: Props) {
   return (
     <>
       <div className="section abilities">

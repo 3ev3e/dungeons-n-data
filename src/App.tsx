@@ -1,9 +1,6 @@
 import { useState, useEffect } from "react";
 import Select from "react-select";
-import Textarea from "@mui/joy/Textarea";
 import TextField from "@mui/material/TextField";
-import FormControl from "@mui/joy/FormControl";
-import FormLabel from "@mui/joy/FormLabel";
 import Character from "./types/interface/character";
 import type { Option } from "./types/interface/option";
 import "./App.css";
@@ -12,16 +9,12 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import characterHeaderEdit from "./components/organisms/characterHeaderEdit";
-import sectionAbilities from "./components/organisms/sectionAbilities";
-import sectionSkills from "./components/organisms/sectionSkills";
-import sectionEquipment from "./components/organisms/sectionEquipment";
-import sectionSpells from "./components/organisms/sectionSpells";
-import footer from "./components/atoms/footer";
 import CharacterHeaderEdit from "./components/organisms/characterHeaderEdit";
 import SectionEquipment from "./components/organisms/sectionEquipment";
 import SectionSpells from "./components/organisms/sectionSpells";
 import SectionSkills from "./components/organisms/sectionSkills";
+import SectionAbilities from "./components/organisms/sectionAbilities";
+import Footer from "./components/atoms/footer";
 
 export default function App() {
   const [character, setCharacter] = useState<Character>({
@@ -479,7 +472,7 @@ export default function App() {
     <div className="p-4 max-w-md mx-auto bg-gray-800 text-white rounded-lg shadow-md">
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static" sx={{ backgroundColor: "#0e1a2b" }}>
-          <Toolbar >
+          <Toolbar>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               Dungeons N Data
             </Typography>
@@ -487,21 +480,18 @@ export default function App() {
           </Toolbar>
         </AppBar>
       </Box>
-      <CharacterHeaderEdit
-        classes={classes}
-        races={races}
-        character={character}
-        setRaces={setRaces}
-        setLanguages={setLanguages}
-        setTraits={setTraits}
-      />
+      <CharacterHeaderEdit classes={classes} races={races} />
       <div className="container">
-        {sectionAbilities(strengthMod, strength, character)}
-        <SectionSkills/>
+        <SectionAbilities
+          strengthMod={strengthMod}
+          strength={strength}
+          character={character}
+        />
+        <SectionSkills />
         <SectionEquipment equipment={equipment} />
       </div>
       <SectionSpells spells={spells} />
-      {footer()}
+      <Footer />
       {/* Character Inputs */}
       <label className="block mb-2">
         Name:

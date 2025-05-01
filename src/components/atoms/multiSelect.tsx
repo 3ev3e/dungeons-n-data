@@ -23,3 +23,5 @@ function MultiSelect({ label, options }: SelectProps) {
   );
 }
 export default MultiSelect;
+//TODO make it look like the fields
+//TODO make handle change work
