@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/dungeons-n-data/static/css/main.fd62c2c4.css",
-    "main.js": "/dungeons-n-data/static/js/main.007c1799.js",
+    "main.js": "/dungeons-n-data/static/js/main.c539044c.js",
     "static/js/453.bcaa6c29.chunk.js": "/dungeons-n-data/static/js/453.bcaa6c29.chunk.js",
     "index.html": "/dungeons-n-data/index.html",
     "main.fd62c2c4.css.map": "/dungeons-n-data/static/css/main.fd62c2c4.css.map",
-    "main.007c1799.js.map": "/dungeons-n-data/static/js/main.007c1799.js.map",
+    "main.c539044c.js.map": "/dungeons-n-data/static/js/main.c539044c.js.map",
     "453.bcaa6c29.chunk.js.map": "/dungeons-n-data/static/js/453.bcaa6c29.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.fd62c2c4.css",
-    "static/js/main.007c1799.js"
+    "static/js/main.c539044c.js"
   ]
 }
