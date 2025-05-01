@@ -1,24 +1,23 @@
-import { colors, InputLabel } from "@mui/material";
-import Select from "react-select";
-//TODO try to change to mui select
-export default function select(fieldName: string, options: any) {
-    /*const handleChange = (field: string, value: any) => {
-        setCharacter((prev) => ({
-          ...prev,
-          [field]: value,
-        }));
-      };*/
+import type { Option } from "../../types/interface/option";
+import InnerSelect from "react-select";
 
+type SelectProps = {
+  label: string;
+  options: Option[];
+};
+
+function Select({ label, options }: SelectProps) {
   return (
     <div className="block mb-2">
-        {fieldName}:
-        <Select
+        {label}
+        <InnerSelect
         className="select"
           options={options}
-          onChange={(selected: typeof Option | null) =>
+          onChange={(selected: Option | null) =>
             selected// && handleChange(fieldName, selected.value)
           }
         />
       </div>
-  )
+  );
 }
+export default Select;
