@@ -415,44 +415,7 @@ export default function App() {
   }
 
   function calculateAbilityMod(ability: number) {
-    /*function calculateAbilityMod(ability: number): number {
-  return Math.floor((ability - 10) / 2);
-}*/
-    if (ability === 1) {
-      return -5;
-    } else if (ability === 2 || ability === 3) {
-      return -4;
-    } else if (ability === 4 || ability === 5) {
-      return -3;
-    } else if (ability === 6 || ability === 7) {
-      return -2;
-    } else if (ability === 8 || ability === 9) {
-      return -1;
-    } else if (ability === 10 || ability === 11) {
-      return 0;
-    } else if (ability === 12 || ability === 13) {
-      return 1;
-    } else if (ability === 14 || ability === 15) {
-      return 2;
-    } else if (ability === 16 || ability === 17) {
-      return 3;
-    } else if (ability === 18 || ability === 19) {
-      return 4;
-    } else if (ability === 20 || ability === 21) {
-      return 5;
-    } else if (ability === 22 || ability === 23) {
-      return 6;
-    } else if (ability === 24 || ability === 25) {
-      return 7;
-    } else if (ability === 26 || ability === 27) {
-      return 8;
-    } else if (ability === 28 || ability === 29) {
-      return 9;
-    } else if (ability === 30) {
-      return 10;
-    } else {
-      return 0;
-    }
+    return Math.floor((ability - 10) / 2);
   }
 
   /*const handleSpellHover = async (spellName: string | number) => {
@@ -485,7 +448,18 @@ export default function App() {
         <SectionAbilities
           strengthMod={strengthMod}
           strength={strength}
+          dexterityMod={dexterityMod}
+          dexterity={dexterity}
+          constitutionMod={constitutionMod}
+          constitution={constitution}
+          intelligenceMod={intelligenceMod}
+          intelligence={intelligence}
+          wisdomMod={wisdomMod}
+          wisdom={wisdom}
+          charismaMod={charismaMod}
+          charisma={charisma}
           character={character}
+          setCharacter={setCharacter}
         />
         <SectionSkills />
         <SectionEquipment equipment={equipment} />
@@ -555,107 +529,6 @@ export default function App() {
         />
       </label>
     ))*/}
-      <label className="block mb-2">
-        Strength:
-        <input
-          type="number"
-          value={character.strength}
-          onChange={(e) =>
-            setCharacter({ ...character, strength: parseInt(e.target.value) })
-          }
-          className="w-full p-2 text-black rounded"
-          min="1"
-          max="30"
-        />
-      </label>
-      <label className="block mb-2">
-        Dexterity:
-        <input
-          type="number"
-          value={character.dexterity}
-          onChange={(e) =>
-            setCharacter({ ...character, dexterity: parseInt(e.target.value) })
-          }
-          className="w-full p-2 text-black rounded"
-          min="1"
-          max="30"
-        />
-      </label>
-      <label className="block mb-2">
-        Constitution:
-        <input
-          type="number"
-          value={character.constitution}
-          onChange={(e) =>
-            setCharacter({
-              ...character,
-              constitution: parseInt(e.target.value),
-            })
-          }
-          className="w-full p-2 text-black rounded"
-          min="1"
-          max="30"
-        />
-      </label>
-      <label className="block mb-2">
-        Intelligence:
-        <input
-          type="number"
-          value={character.intelligence}
-          onChange={(e) =>
-            setCharacter({
-              ...character,
-              intelligence: parseInt(e.target.value),
-            })
-          }
-          className="w-full p-2 text-black rounded"
-          min="1"
-          max="30"
-        />
-      </label>
-      <label className="block mb-2">
-        Wisdom:
-        <input
-          type="number"
-          value={character.wisdom}
-          onChange={(e) =>
-            setCharacter({ ...character, wisdom: parseInt(e.target.value) })
-          }
-          className="w-full p-2 text-black rounded"
-          min="1"
-          max="30"
-        />
-      </label>
-      <label className="block mb-2">
-        Charisma:
-        <input
-          type="number"
-          value={character.charisma}
-          onChange={(e) =>
-            setCharacter({ ...character, charisma: parseInt(e.target.value) })
-          }
-          className="w-full p-2 text-black rounded"
-          min="1"
-          max="30"
-        />
-      </label>
-      <br />
-      {"StrengthMod: " + (strengthMod + " ")}
-      {"DexterityMod: " + (dexterityMod + " ")}
-      {"ConstitutionMod: " + (constitutionMod + " ")}
-      {"IntelligenceMod: " + (intelligenceMod + " ")}
-      {"WisdomMod: " + (wisdomMod + " ")}
-      {"CharismaMod: " + charismaMod}
-      <br />
-      {"Strength: " + (strength + character.strength + strengthMod + " ")}
-      {"Dexterity: " + (dexterity + character.dexterity + dexterityMod + " ")}
-      {"Constitution: " +
-        (constitution + character.constitution + constitutionMod + " ")}
-      {"Intelligence: " +
-        (intelligence + character.intelligence + intelligenceMod + " ")}
-      {"Wisdom: " + (wisdom + character.wisdom + wisdomMod + " ")}
-      {"Charisma: " + (charisma + character.charisma + charismaMod)}
-      <br />
       {/* Equipment and Spells */}
       <label className="block mb-2">
         Equipment:
