@@ -1,4 +1,4 @@
-export default function sectionSkills() {
+function SectionSkills() {
   return (
     <div className="section skills">
     <h3>Skills & Saving Throws</h3>
@@ -7,3 +7,5 @@ export default function sectionSkills() {
     </div>
   );
 }
+
+export default SectionSkills;

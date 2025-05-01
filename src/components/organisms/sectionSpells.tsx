@@ -1,13 +1,21 @@
 import type { Option } from "../../types/interface/option";
-import Select from "../atoms/select";
+import MultiSelect from "../atoms/multiSelect";
 
-export default function sectionSpells(spells: Option[]) {
+type Props = {
+  spells: Option[];
+};
+
+function SectionSpells({
+  spells
+}: Props) {
   return (
     <div className="section spells" style={{ margin: "2rem" }}>
     <div style={{ display: "flex", justifyContent: "space-between" }}>
-      <Select label="Spells" options={spells} />
+      <MultiSelect label="Spells" options={spells} />
     </div>
   </div>
   
   );
 }
+
+export default SectionSpells;

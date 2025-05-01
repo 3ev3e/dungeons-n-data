@@ -1,5 +1,5 @@
 import type { Option } from "../../types/interface/option";
-import InnerSelect from "react-select";
+import ReactSelect from "react-select";
 
 type SelectProps = {
   label: string;
@@ -10,7 +10,7 @@ function Select({ label, options }: SelectProps) {
   return (
     <div className="block mb-2">
         {label}
-        <InnerSelect
+        <ReactSelect
         className="select"
           options={options}
           onChange={(selected: Option | null) =>
@@ -21,3 +21,4 @@ function Select({ label, options }: SelectProps) {
   );
 }
 export default Select;
+//TODO make it look like the fields

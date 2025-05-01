@@ -7,11 +7,11 @@ import FormLabel from "@mui/joy/FormLabel";
 import Character from "./types/interface/character";
 import type { Option } from "./types/interface/option";
 import "./App.css";
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
 import characterHeaderEdit from "./components/organisms/characterHeaderEdit";
 import sectionAbilities from "./components/organisms/sectionAbilities";
 import sectionSkills from "./components/organisms/sectionSkills";
@@ -19,7 +19,9 @@ import sectionEquipment from "./components/organisms/sectionEquipment";
 import sectionSpells from "./components/organisms/sectionSpells";
 import footer from "./components/atoms/footer";
 import CharacterHeaderEdit from "./components/organisms/characterHeaderEdit";
-
+import SectionEquipment from "./components/organisms/sectionEquipment";
+import SectionSpells from "./components/organisms/sectionSpells";
+import SectionSkills from "./components/organisms/sectionSkills";
 
 export default function App() {
   const [character, setCharacter] = useState<Character>({
@@ -292,7 +294,7 @@ export default function App() {
               : []
           )
         );
-        //rework equipment
+      //rework equipment
       /*fetch(
         `https://www.dnd5eapi.co/api/classes/${character.class
           .toString()
@@ -476,66 +478,77 @@ export default function App() {
   return (
     <div className="p-4 max-w-md mx-auto bg-gray-800 text-white rounded-lg shadow-md">
       <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" sx={{backgroundColor: "#152a45"}}>
-        <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          Dungeons N Data
-          </Typography>
-          <Button color="inherit">Login</Button>
-        </Toolbar>
-      </AppBar>
-    </Box>
-    <CharacterHeaderEdit
-  classes={classes}
-  races={races}
-  character={character}
-  setLanguages={setLanguages}
-  setTraits={setTraits}
-/>
-    <div className="container">
-      {sectionAbilities(strengthMod, strength, character)}
-      {sectionSkills()}
-      {sectionEquipment(equipment)}
-    </div>
-    {sectionSpells(spells)}
-    {footer()}
-        {/* Character Inputs */}
-        <label className="block mb-2">
-          Name:
-          <input
-            type="text"
-            value={character.name}
-            onChange={(e) => setCharacter({ ...character, name: e.target.value })}
-            className="w-full p-2 text-black rounded" />
-        </label>
-        <br />
-        <label className="block mb-2">
-          Level:
-          <input
-            type="number"
-            value={character.level}
-            onChange={(e) => setCharacter({ ...character, level: parseInt(e.target.value) })}
-            className="w-full p-2 text-black rounded"
-            min="1"
-            max="20" />
-        </label>
-        <br />
-        <label className="block mb-2">
-          Race:
-          <Select
-            options={races}
-            onChange={(selected: Option | null) => selected && handleChange("race", selected.value)}
-            className="text-black" />
-        </label>
-        <label className="block mb-2">
-          Class:
-          <Select
-            options={classes}
-            onChange={(selected: Option | null) => selected && handleChange("class", selected.value)}
-            className="text-black" />
-        </label>
-        {/* Ability Scores Inputs */}
-        {/*[
+        <AppBar position="static" sx={{ backgroundColor: "#0e1a2b" }}>
+          <Toolbar >
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+              Dungeons N Data
+            </Typography>
+            <Button color="inherit">Login</Button>
+          </Toolbar>
+        </AppBar>
+      </Box>
+      <CharacterHeaderEdit
+        classes={classes}
+        races={races}
+        character={character}
+        setRaces={setRaces}
+        setLanguages={setLanguages}
+        setTraits={setTraits}
+      />
+      <div className="container">
+        {sectionAbilities(strengthMod, strength, character)}
+        <SectionSkills/>
+        <SectionEquipment equipment={equipment} />
+      </div>
+      <SectionSpells spells={spells} />
+      {footer()}
+      {/* Character Inputs */}
+      <label className="block mb-2">
+        Name:
+        <input
+          type="text"
+          value={character.name}
+          onChange={(e) => setCharacter({ ...character, name: e.target.value })}
+          className="w-full p-2 text-black rounded"
+        />
+      </label>
+      <br />
+      <label className="block mb-2">
+        Level:
+        <input
+          type="number"
+          value={character.level}
+          onChange={(e) =>
+            setCharacter({ ...character, level: parseInt(e.target.value) })
+          }
+          className="w-full p-2 text-black rounded"
+          min="1"
+          max="20"
+        />
+      </label>
+      <br />
+      <label className="block mb-2">
+        Race:
+        <Select
+          options={races}
+          onChange={(selected: Option | null) =>
+            selected && handleChange("race", selected.value)
+          }
+          className="text-black"
+        />
+      </label>
+      <label className="block mb-2">
+        Class:
+        <Select
+          options={classes}
+          onChange={(selected: Option | null) =>
+            selected && handleChange("class", selected.value)
+          }
+          className="text-black"
+        />
+      </label>
+      {/* Ability Scores Inputs */}
+      {/*[
       "strength",
       "dexterity",
       "constitution",
@@ -552,168 +565,204 @@ export default function App() {
         />
       </label>
     ))*/}
-        <label className="block mb-2">
-          Strength:
-          <input
-            type="number"
-            value={character.strength}
-            onChange={(e) => setCharacter({ ...character, strength: parseInt(e.target.value) })}
-            className="w-full p-2 text-black rounded"
-            min="1"
-            max="30" />
-        </label>
-        <label className="block mb-2">
-          Dexterity:
-          <input
-            type="number"
-            value={character.dexterity}
-            onChange={(e) => setCharacter({ ...character, dexterity: parseInt(e.target.value) })}
-            className="w-full p-2 text-black rounded"
-            min="1"
-            max="30" />
-        </label>
-        <label className="block mb-2">
-          Constitution:
-          <input
-            type="number"
-            value={character.constitution}
-            onChange={(e) => setCharacter({
+      <label className="block mb-2">
+        Strength:
+        <input
+          type="number"
+          value={character.strength}
+          onChange={(e) =>
+            setCharacter({ ...character, strength: parseInt(e.target.value) })
+          }
+          className="w-full p-2 text-black rounded"
+          min="1"
+          max="30"
+        />
+      </label>
+      <label className="block mb-2">
+        Dexterity:
+        <input
+          type="number"
+          value={character.dexterity}
+          onChange={(e) =>
+            setCharacter({ ...character, dexterity: parseInt(e.target.value) })
+          }
+          className="w-full p-2 text-black rounded"
+          min="1"
+          max="30"
+        />
+      </label>
+      <label className="block mb-2">
+        Constitution:
+        <input
+          type="number"
+          value={character.constitution}
+          onChange={(e) =>
+            setCharacter({
               ...character,
               constitution: parseInt(e.target.value),
-            })}
-            className="w-full p-2 text-black rounded"
-            min="1"
-            max="30" />
-        </label>
-        <label className="block mb-2">
-          Intelligence:
-          <input
-            type="number"
-            value={character.intelligence}
-            onChange={(e) => setCharacter({
+            })
+          }
+          className="w-full p-2 text-black rounded"
+          min="1"
+          max="30"
+        />
+      </label>
+      <label className="block mb-2">
+        Intelligence:
+        <input
+          type="number"
+          value={character.intelligence}
+          onChange={(e) =>
+            setCharacter({
               ...character,
               intelligence: parseInt(e.target.value),
-            })}
-            className="w-full p-2 text-black rounded"
-            min="1"
-            max="30" />
-        </label>
-        <label className="block mb-2">
-          Wisdom:
-          <input
-            type="number"
-            value={character.wisdom}
-            onChange={(e) => setCharacter({ ...character, wisdom: parseInt(e.target.value) })}
-            className="w-full p-2 text-black rounded"
-            min="1"
-            max="30" />
-        </label>
-        <label className="block mb-2">
-          Charisma:
-          <input
-            type="number"
-            value={character.charisma}
-            onChange={(e) => setCharacter({ ...character, charisma: parseInt(e.target.value) })}
-            className="w-full p-2 text-black rounded"
-            min="1"
-            max="30" />
-        </label>
-        <br />
-        {"StrengthMod: " + (strengthMod + " ")}
-        {"DexterityMod: " + (dexterityMod + " ")}
-        {"ConstitutionMod: " + (constitutionMod + " ")}
-        {"IntelligenceMod: " + (intelligenceMod + " ")}
-        {"WisdomMod: " + (wisdomMod + " ")}
-        {"CharismaMod: " + charismaMod}
-        <br />
-        {"Strength: " + (strength + character.strength + strengthMod + " ")}
-        {"Dexterity: " + (dexterity + character.dexterity + dexterityMod + " ")}
-        {"Constitution: " +
-          (constitution + character.constitution + constitutionMod + " ")}
-        {"Intelligence: " +
-          (intelligence + character.intelligence + intelligenceMod + " ")}
-        {"Wisdom: " + (wisdom + character.wisdom + wisdomMod + " ")}
-        {"Charisma: " + (charisma + character.charisma + charismaMod)}
-        <br />
-        {/* Equipment and Spells */}
-        <label className="block mb-2">
-          Equipment:
-          <Select
-            options={equipment}
-            isMulti
-            onChange={(selected) => setCharacter({
-              ...character,
-              equipment: selected.map((item: { value: any; }) => item.value),
-            })}
-            className="text-black" />
-        </label>
-        <label className="block mb-2">
-          Spells (Level {character.level} or lower):
-          <Select
-            options={spells.filter((spell) => spell.level <= character.level)}
-            isMulti
-            onChange={(selected) => setCharacter({
-              ...character,
-              spells: selected.map((item: { value: any; }) => item.value),
-            })}
-            className="text-black" />
-        </label>
-        <label className="block mb-2">
-          ArmorClass:
-          <input
-            type="number"
-            value={character.armorClass}
-            onChange={(e) => setCharacter({ ...character, armorClass: parseInt(e.target.value) })}
-            className="w-full p-2 text-black rounded"
-            min="1"
-            max="20" />
-        </label>
-        <label className="block mb-2">
-          Initiative:
-          <input
-            type="number"
-            value={character.initiative}
-            onChange={(e) => setCharacter({ ...character, initiative: parseInt(e.target.value) })}
-            className="w-full p-2 text-black rounded"
-            min="1"
-            max="20" />
-        </label>
-        <TextField
-          disabled
-          id="speed-field"
-          label="Speed"
+            })
+          }
+          className="w-full p-2 text-black rounded"
+          min="1"
+          max="30"
+        />
+      </label>
+      <label className="block mb-2">
+        Wisdom:
+        <input
           type="number"
-          value={character.speed}
-          onChange={(e) => setCharacter({ ...character, speed: parseInt(e.target.value) })} />
-        <label className="block mb-2">
-          MaxHP:
-          <input
-            type="number"
-            value={character.maxHP}
-            onChange={(e) => setCharacter({ ...character, maxHP: parseInt(e.target.value) })}
-            className="w-full p-2 text-black rounded"
-            min="1"
-            max="20" />
-        </label>
-        
-        {/* Save Character Button */}
-        <button
-          onClick={handleSaveCharacter}
-          className="mt-4 p-2 bg-blue-600 text-white rounded"
-        >
-          Save Character
-        </button>
-        {/* Display All Saved Characters */}
-        <div className="mt-6">
-          <h3 className="font-bold">Saved Characters:</h3>
-          <ul>
-            {characters.map((char, index) => (
-              <li key={index}>
-                <strong>{char.name}</strong> ({char.class} - {char.level})
-              </li>
-            ))}
-          </ul>
-        </div>
+          value={character.wisdom}
+          onChange={(e) =>
+            setCharacter({ ...character, wisdom: parseInt(e.target.value) })
+          }
+          className="w-full p-2 text-black rounded"
+          min="1"
+          max="30"
+        />
+      </label>
+      <label className="block mb-2">
+        Charisma:
+        <input
+          type="number"
+          value={character.charisma}
+          onChange={(e) =>
+            setCharacter({ ...character, charisma: parseInt(e.target.value) })
+          }
+          className="w-full p-2 text-black rounded"
+          min="1"
+          max="30"
+        />
+      </label>
+      <br />
+      {"StrengthMod: " + (strengthMod + " ")}
+      {"DexterityMod: " + (dexterityMod + " ")}
+      {"ConstitutionMod: " + (constitutionMod + " ")}
+      {"IntelligenceMod: " + (intelligenceMod + " ")}
+      {"WisdomMod: " + (wisdomMod + " ")}
+      {"CharismaMod: " + charismaMod}
+      <br />
+      {"Strength: " + (strength + character.strength + strengthMod + " ")}
+      {"Dexterity: " + (dexterity + character.dexterity + dexterityMod + " ")}
+      {"Constitution: " +
+        (constitution + character.constitution + constitutionMod + " ")}
+      {"Intelligence: " +
+        (intelligence + character.intelligence + intelligenceMod + " ")}
+      {"Wisdom: " + (wisdom + character.wisdom + wisdomMod + " ")}
+      {"Charisma: " + (charisma + character.charisma + charismaMod)}
+      <br />
+      {/* Equipment and Spells */}
+      <label className="block mb-2">
+        Equipment:
+        <Select
+          options={equipment}
+          isMulti
+          onChange={(selected) =>
+            setCharacter({
+              ...character,
+              equipment: selected.map((item: { value: any }) => item.value),
+            })
+          }
+          className="text-black"
+        />
+      </label>
+      <label className="block mb-2">
+        Spells (Level {character.level} or lower):
+        <Select
+          options={spells.filter((spell) => spell.level <= character.level)}
+          isMulti
+          onChange={(selected) =>
+            setCharacter({
+              ...character,
+              spells: selected.map((item: { value: any }) => item.value),
+            })
+          }
+          className="text-black"
+        />
+      </label>
+      <label className="block mb-2">
+        ArmorClass:
+        <input
+          type="number"
+          value={character.armorClass}
+          onChange={(e) =>
+            setCharacter({ ...character, armorClass: parseInt(e.target.value) })
+          }
+          className="w-full p-2 text-black rounded"
+          min="1"
+          max="20"
+        />
+      </label>
+      <label className="block mb-2">
+        Initiative:
+        <input
+          type="number"
+          value={character.initiative}
+          onChange={(e) =>
+            setCharacter({ ...character, initiative: parseInt(e.target.value) })
+          }
+          className="w-full p-2 text-black rounded"
+          min="1"
+          max="20"
+        />
+      </label>
+      <TextField
+        disabled
+        id="speed-field"
+        label="Speed"
+        type="number"
+        value={character.speed}
+        onChange={(e) =>
+          setCharacter({ ...character, speed: parseInt(e.target.value) })
+        }
+      />
+      <label className="block mb-2">
+        MaxHP:
+        <input
+          type="number"
+          value={character.maxHP}
+          onChange={(e) =>
+            setCharacter({ ...character, maxHP: parseInt(e.target.value) })
+          }
+          className="w-full p-2 text-black rounded"
+          min="1"
+          max="20"
+        />
+      </label>
+
+      {/* Save Character Button */}
+      <button
+        onClick={handleSaveCharacter}
+        className="mt-4 p-2 bg-blue-600 text-white rounded"
+      >
+        Save Character
+      </button>
+      {/* Display All Saved Characters */}
+      <div className="mt-6">
+        <h3 className="font-bold">Saved Characters:</h3>
+        <ul>
+          {characters.map((char, index) => (
+            <li key={index}>
+              <strong>{char.name}</strong> ({char.class} - {char.level})
+            </li>
+          ))}
+        </ul>
       </div>
+    </div>
   );
 }

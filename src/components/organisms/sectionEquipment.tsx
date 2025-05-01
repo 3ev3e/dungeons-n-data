@@ -1,12 +1,19 @@
 import type { Option } from "../../types/interface/option";
-import Select from "../atoms/select";
+import MultiSelect from "../atoms/multiSelect";
 
+type Props = {
+  equipment: Option[];
+};
 
-export default function sectionEquipment(equipment: Option[]) {
+function SectionEquipment({
+  equipment
+}: Props) {
   return (
     <div className="section equipment">
       <h3>Equipment</h3>
-    <Select label="" options={equipment} />
+    <MultiSelect label="" options={equipment} />
   </div>
   );
 }
+
+export default SectionEquipment;

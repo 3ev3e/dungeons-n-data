@@ -9,6 +9,7 @@ type Props = {
   classes: Option[];
   races: Option[];
   character: Character;
+  setRaces: React.Dispatch<React.SetStateAction<Option[]>>;
   setLanguages: React.Dispatch<React.SetStateAction<Option[]>>;
   setTraits: React.Dispatch<React.SetStateAction<Option[]>>;
 };
@@ -17,10 +18,10 @@ function CharacterHeaderEdit({
   classes,
   races,
   character,
+  setRaces,
   setLanguages,
   setTraits,
 }: Props) {
-  const [races2, setRaces] = useState<Option[]>([]);
 
   useEffect(() => {
     fetch("https://www.dnd5eapi.co/api/races")
@@ -65,7 +66,7 @@ function CharacterHeaderEdit({
         </span>
       </div>
       <div>
-        <span><Select label="Race" options={races2} />
+        <span><Select label="Race" options={races} />
         </span>
         <span>
           {numberField("Armor Class")} {numberField("Health Points")}
